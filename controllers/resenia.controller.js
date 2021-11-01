@@ -15,7 +15,7 @@ exports.agregarResenia = (req, res) => {
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "Resenia agregada exitosamente."
+            mensaje: "Reseña agregada exitosamente."
         });
     })
     .catch(() => {
@@ -46,14 +46,14 @@ exports.modificarResenia = (req, res) => {
             res.status(404).send({
                 exito: false,
                 status: 404,
-                mensaje: "No se encontró la resenia."
+                mensaje: "No se encontró la reseña."
             });
             return;
         }
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "Resenia modificada exitosamente."
+            mensaje: "Reseña modificada exitosamente."
         });
     })
     .catch(() => {
@@ -82,14 +82,14 @@ exports.eliminarResenia = (req, res) => {
             res.status(404).send({
                 exito: false,
                 status: 404,
-                mensaje: "No se encontró la resenia." 
+                mensaje: "No se encontró la reseña." 
             });
             return;
         }
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "resenia eliminado exitosamente."
+            mensaje: "Reseña eliminado exitosamente."
         });
     })
     .catch(() => {
@@ -102,22 +102,48 @@ exports.eliminarResenia = (req, res) => {
 };
 
 //VERIFICAR COMPRA PREVIA
-/*(exports.verificarCompraPrevia = (req, res) => {
-    if(!req.body.resenia){
+exports.verificarCompraPrevia = (req, res) => {
+    if(!req.body.idServicio || !req.body.dniUsuario){
         res.status(400).send({
             exito: false,
             status: 400,
-            mensaje: "Petición errónea. Falta parámetro 'resenia'." 
+            mensaje: "Petición errónea. Falta parámetro 'idServicio' o 'idUsuario'." 
         });
         return;
     }
-    db.getInstance().collection("resenias").insertOne(JSON.parse(req.body.resenia))
-    .then(() => {
-        res.status(200).send({
-            exito: true,
-            status: 200,
-            mensaje: "Resenia agregada exitosamente."
+    db.getInstance().collection("turnos").find({ dniUsuario: req.body.dniUsuario })
+    .toArray()
+    .then(data => {
+        if(!data.length){
+            res.status(404).send({
+                exito: false,
+                status: 404,
+                mensaje: "No se encontraron turnos."
+            });
+            return;
+        }
+        let cantidad = 0;
+        data.forEach(turno => {
+            if(turno.servicio._id == req.body.idServicio){
+                cantidad++;
+            }
         });
+        if(cantidad > 0){
+            res.status(200).send({
+                exito: true,
+                status: 200,
+                mensaje: "Existe compra previa del servicio."
+            });
+            return;
+        }
+        else{
+            res.status(200).send({
+                exito: false,
+                status: 404,
+                mensaje: "No existe compra previa del servicio."
+            });
+            return;
+        }
     })
     .catch(() => {
         res.status(500).send({
@@ -126,4 +152,4 @@ exports.eliminarResenia = (req, res) => {
             mensaje: "Error interno en el servidor." 
         });
     });
-};*/
+};

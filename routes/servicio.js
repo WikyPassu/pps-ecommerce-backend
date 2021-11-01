@@ -7,5 +7,6 @@ router.put("/modificar", ServicioController.modificarServicio);
 router.delete("/eliminar", ServicioController.eliminarServicio);
 router.get("/buscar", ServicioController.buscarServicios);
 router.get("/traerTodos", ServicioController.traerServicios);
+router.get("/traerMasVendido", ServicioController.traerMasVendido);
 
 module.exports = router;

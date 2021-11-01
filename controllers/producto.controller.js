@@ -166,3 +166,71 @@ exports.traerProductos = (req, res) => {
         });
     });
 };
+
+//TRAER MAS VENDIDO
+exports.traerMasVendido = (req, res) => {
+    db.getInstance().collection("productos").find()
+    .toArray()
+    .then(data => {
+        if(!data.length){
+            res.status(404).send({
+                exito: false,
+                status: 404,
+                mensaje: "No se encontraron productos."
+            });
+            return;
+        }
+        let productos = data;
+        productos.forEach(producto => producto.cantidad = 0);
+        db.getInstance().collection("facturas").find()
+        .toArray()
+        .then(data => {
+            if(!data.length){
+                res.status(404).send({
+                    exito: false,
+                    status: 404,
+                    mensaje: "No se encontraron facturas." 
+                });
+                return;
+            }
+            let facturas = data;
+            let detalleFacturas = [];
+            facturas.forEach(factura => detalleFacturas.push(...factura.detalleFactura));
+            productos.forEach(producto => {
+                detalleFacturas.forEach(detalle => {
+                    if(producto._id == detalle.producto._id){
+                        producto.cantidad += detalle.cantidad;
+                    }
+                });
+            });
+            let productoMax;
+            let flag = 0;
+            productos.forEach(producto => {
+                if(!flag || producto.cantidad > productoMax.cantidad){
+                    productoMax = producto;
+                    flag = 1;
+                }
+            });
+            res.status(200).send({
+                exito: true,
+                status: 200,
+                mensaje: "Producto mas vendido encontrado.",
+                producto: productoMax
+            });
+        })
+        .catch(() => {
+            res.status(500).send({
+                exito: false,
+                status: 500,
+                mensaje: "Error interno en el servidor." 
+            });
+        });
+    })
+    .catch(() => {
+        res.status(500).send({
+            exito: false,
+            status: 500,
+            mensaje: "Error interno en el servidor." 
+        });
+    });
+};

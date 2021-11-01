@@ -31,7 +31,7 @@ app.use('/turno', require('./routes/turno'));
 app.use('/factura', require('./routes/factura'));
 app.use('/usuarioRegistrado', require('./routes/usuarioRegistrado'));
 app.use('/empleado', require('./routes/empleado'));
-app.use('/reseña', require('./routes/resenia'));
+app.use('/resenia', require('./routes/resenia'));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`App activa en el puerto ${port}`));
