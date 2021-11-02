@@ -14,13 +14,21 @@ exports.realizarPago = (req, res) => {
         });
         return;
     }
-    let productos = JSON.parse(req.body.productos);
-    let preference = { items: [] };
-    productos.forEach(producto => {
+    let productos = req.body.productos;
+    let preference = {
+        auto_return: "approved",
+        items: [],
+        back_urls: {
+            failure: "http://localhost:3000/caja/resultado/fallido",
+            pending: "http://localhost:3000/caja/resultado/pendiente",
+            success: "http://localhost:3000/caja/resultado/exitoso"
+        }
+    };
+    productos.forEach(item => {
         preference.items.push({
-            title: producto.descripcion,
-            unit_price: producto.precio,
-            quantity: producto.cantidad
+            title: item.item.nombre,
+            unit_price: item.item.precio,
+            quantity: item.cantidad
         });
     });
     mercadopago.preferences.create(preference)

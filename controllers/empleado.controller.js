@@ -155,7 +155,7 @@ exports.login = (req, res) => {
             exito: true,
             status: 200,
             mensaje: "Inicio de sesión exitoso.",
-            Empleado: data
+            empleado: data
         });
     })
     .catch(() => {
