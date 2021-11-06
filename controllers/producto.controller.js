@@ -272,14 +272,21 @@ exports.traerMasVendidos = (req, res) => {
                     }
                 });
             });
-            // this.productos.sort((p1, p2) => {
-            //     if(p1.cantidad > )
-            // });
+            productos.sort((p1, p2) => {
+                if(p1.cantidad < p2.cantidad){
+                    return 1;
+                }
+                if(p1.cantidad > p2.cantidad){
+                    return -1;
+                }
+                return 0;
+            });
+            console.log(productos);
             res.status(200).send({
                 exito: true,
                 status: 200,
-                mensaje: "Producto mas vendido encontrado.",
-                productos: productoMax
+                mensaje: "Productos mas vendidos encontrados y ordenados.",
+                productos: productos
             });
         })
         .catch(() => {
