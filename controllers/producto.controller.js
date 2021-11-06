@@ -281,7 +281,6 @@ exports.traerMasVendidos = (req, res) => {
                 }
                 return 0;
             });
-            console.log(productos);
             res.status(200).send({
                 exito: true,
                 status: 200,
