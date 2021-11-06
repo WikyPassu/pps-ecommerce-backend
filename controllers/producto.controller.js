@@ -30,7 +30,6 @@ exports.agregarProducto = (req, res) => {
 
 //MODIFICAR
 exports.modificarProducto = (req, res) => {
-    console.log("req.body:\n", req.body);
     if(!req.body._id || !req.body.producto){
         res.status(400).send({
             exito: false,
@@ -62,8 +61,7 @@ exports.modificarProducto = (req, res) => {
         res.status(500).send({
             exito: false,
             status: 500,
-            mensaje: "Error interno en el servidor.",
-            error: err 
+            mensaje: "Error interno en el servidor."
         });
     });
 };
