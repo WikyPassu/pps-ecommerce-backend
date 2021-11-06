@@ -30,6 +30,7 @@ exports.agregarProducto = (req, res) => {
 
 //MODIFICAR
 exports.modificarProducto = (req, res) => {
+    console.log("req.body:\n", req.body);
     if(!req.body._id || !req.body.producto){
         res.status(400).send({
             exito: false,
