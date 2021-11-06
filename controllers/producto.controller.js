@@ -237,7 +237,7 @@ exports.traerMasVendido = (req, res) => {
 };
 
 //TRAER MAS VENDIDOS
-exports.traerMasVendido = (req, res) => {
+exports.traerMasVendidos = (req, res) => {
     db.getInstance().collection("productos").find()
     .toArray()
     .then(data => {
