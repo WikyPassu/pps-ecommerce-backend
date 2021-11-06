@@ -10,7 +10,7 @@ exports.agregarTurno = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("turnos").insertOne(JSON.parse(req.body.turno))
+    db.getInstance().collection("turnos").insertOne(req.body.turno)
     .then(() => {
         res.status(200).send({
             exito: true,

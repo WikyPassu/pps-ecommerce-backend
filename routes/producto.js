@@ -8,5 +8,6 @@ router.delete("/eliminar", ProductoController.eliminarProducto);
 router.get("/buscar", ProductoController.buscarProductos);
 router.get("/traerTodos", ProductoController.traerProductos);
 router.get("/traerMasVendido", ProductoController.traerMasVendido);
+router.get("/traerMasVendidos", ProductoController.traerMasVendidos);
 
 module.exports = router;
