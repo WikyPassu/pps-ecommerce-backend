@@ -3,7 +3,6 @@ const db = require("../models/db");
 //AGREGAR
 exports.agregarProducto = (req, res) => {
     if(!req.body.producto){
-
         res.status(400).send({
             exito: false,
             status: 400,
@@ -19,7 +18,7 @@ exports.agregarProducto = (req, res) => {
             mensaje: "Producto agregado exitosamente."
         });
     })
-    .catch((err) => {
+    .catch(() => {
         res.status(500).send({
             exito: false,
             status: 500,

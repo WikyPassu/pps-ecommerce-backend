@@ -10,7 +10,7 @@ exports.agregarTurno = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("turnos").insertOne(JSON.parse(req.body.turno))
+    db.getInstance().collection("turnos").insertOne(req.body.turno)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarTurno = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("turnos").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.turno) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.turno }
     )
     .then(data => {
         if(!data.modifiedCount){
