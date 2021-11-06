@@ -40,7 +40,7 @@ exports.modificarProducto = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("productos").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.producto) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.producto }
     )
     .then(data => {
         if(!data.modifiedCount){
