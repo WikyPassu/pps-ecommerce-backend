@@ -10,7 +10,7 @@ exports.agregarProducto = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("productos").insertOne(JSON.parse(req.body.producto))
+    db.getInstance().collection("productos").insertOne(req.body.producto)
     .then(() => {
         res.status(200).send({
             exito: true,
