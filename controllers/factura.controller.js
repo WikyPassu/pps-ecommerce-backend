@@ -10,7 +10,7 @@ exports.agregarFactura = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("facturas").insertOne(JSON.parse(req.body.factura))
+    db.getInstance().collection("facturas").insertOne(req.body.factura)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarFactura = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("facturas").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.factura) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.factura }
     )
     .then(data => {
         if(!data.modifiedCount){
