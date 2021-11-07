@@ -10,7 +10,7 @@ exports.agregarEmpleado = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("empleados").insertOne(JSON.parse(req.body.empleado))
+    db.getInstance().collection("empleados").insertOne(req.body.empleado)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarEmpleado = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("empleados").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.empleado) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.empleado }
     )
     .then(data => {
         if(!data.modifiedCount){
