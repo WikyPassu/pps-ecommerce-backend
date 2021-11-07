@@ -10,7 +10,7 @@ exports.agregarUsuarioRegistrado = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("usuariosRegistrados").insertOne(JSON.parse(req.body.usuarioRegistrado))
+    db.getInstance().collection("usuariosRegistrados").insertOne(req.body.usuarioRegistrado)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarUsuarioRegistrado = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("usuariosRegistrados").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.usuarioRegistrado) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.usuarioRegistrado }
     )
     .then(data => {
         if(!data.modifiedCount){

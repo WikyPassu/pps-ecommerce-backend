@@ -10,7 +10,7 @@ exports.agregarResenia = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("resenias").insertOne(JSON.parse(req.body.resenia))
+    db.getInstance().collection("resenias").insertOne(req.body.resenia)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarResenia = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("resenias").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.resenia) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.resenia }
     )
     .then(data => {
         if(!data.modifiedCount){

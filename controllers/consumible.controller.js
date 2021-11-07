@@ -10,7 +10,7 @@ exports.agregarConsumible = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("consumibles").insertOne(JSON.parse(req.body.consumible))
+    db.getInstance().collection("consumibles").insertOne(req.body.consumible)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarConsumible = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("consumibles").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.consumible) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.consumible }
     )
     .then(data => {
         if(!data.modifiedCount){
