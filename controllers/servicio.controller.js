@@ -10,7 +10,7 @@ exports.agregarServicio = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("servicios").insertOne(JSON.parse(req.body.servicio))
+    db.getInstance().collection("servicios").insertOne(req.body.servicio)
     .then(() => {
         res.status(200).send({
             exito: true,
@@ -39,7 +39,7 @@ exports.modificarServicio = (req, res) => {
     }
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("servicios").updateOne(
-        { _id: ObjectID(req.body._id) }, { $set: JSON.parse(req.body.servicio) }
+        { _id: ObjectID(req.body._id) }, { $set: req.body.servicio }
     )
     .then(data => {
         if(!data.modifiedCount){
