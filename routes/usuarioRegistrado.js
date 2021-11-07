@@ -6,6 +6,6 @@ router.post("/agregar", UsuarioRegistradoController.agregarUsuarioRegistrado);
 router.put("/modificar", UsuarioRegistradoController.modificarUsuarioRegistrado);
 router.delete("/eliminar", UsuarioRegistradoController.eliminarUsuarioRegistrado);
 router.get("/traerTodos", UsuarioRegistradoController.traerUsuariosRegistrados);
-router.get("/login", UsuarioRegistradoController.login);
+router.post("/login", UsuarioRegistradoController.login);
 
 module.exports = router;

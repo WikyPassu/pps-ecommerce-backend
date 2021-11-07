@@ -6,7 +6,7 @@ router.post("/agregar", FacturaController.agregarFactura);
 router.put("/modificar", FacturaController.modificarFactura);
 router.delete("/eliminar", FacturaController.eliminarFactura);
 router.get("/traerTodas", FacturaController.traerFacturas);
-router.get("/traerTodasUsuario", FacturaController.traerFacturasUsuario);
-router.get("/traerTodasTemporada", FacturaController.traerFacturasTemporada);
+router.post("/traerTodasUsuario", FacturaController.traerFacturasUsuario);
+router.post("/traerTodasTemporada", FacturaController.traerFacturasTemporada);
 
 module.exports = router;

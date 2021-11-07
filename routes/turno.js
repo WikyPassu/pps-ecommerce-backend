@@ -6,6 +6,6 @@ router.post("/agregar", TurnoController.agregarTurno);
 router.put("/modificar", TurnoController.modificarTurno);
 router.delete("/eliminar", TurnoController.eliminarTurno);
 router.get("/traerTodos", TurnoController.traerTurnos);
-router.get("/traerTodosUsuario", TurnoController.traerTurnosUsuario);
+router.post("/traerTodosUsuario", TurnoController.traerTurnosUsuario);
 
 module.exports = router;
