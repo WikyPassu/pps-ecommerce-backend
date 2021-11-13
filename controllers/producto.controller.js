@@ -15,7 +15,8 @@ exports.agregarProducto = (req, res) => {
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "Producto agregado exitosamente."
+            mensaje: "Producto agregado exitosamente.",
+            usuario: res.ops[0]
         });
     })
     .catch(() => {
