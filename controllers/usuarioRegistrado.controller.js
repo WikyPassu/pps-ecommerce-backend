@@ -11,12 +11,12 @@ exports.agregarUsuarioRegistrado = (req, res) => {
         return;
     }
     db.getInstance().collection("usuariosRegistrados").insertOne(req.body.usuarioRegistrado)
-    .then(() => {
+    .then((response) => {
         res.status(200).send({
             exito: true,
             status: 200,
             mensaje: "Usuario agregado exitosamente.",
-            usuario: res.json()
+            usuario: response.ops[0]
         });
     })
     .catch(() => {
