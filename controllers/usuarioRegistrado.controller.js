@@ -16,14 +16,14 @@ exports.agregarUsuarioRegistrado = (req, res) => {
             exito: true,
             status: 200,
             mensaje: "Usuario agregado exitosamente.",
-            usuario: res.ops[0]
+            usuario: res
         });
     })
-    .catch((err) => {
+    .catch(() => {
         res.status(500).send({
             exito: false,
             status: 500,
-            mensaje: "Error interno en el servidor. " + err 
+            mensaje: "Error interno en el servidor." 
         });
     });
 };
