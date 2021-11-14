@@ -11,11 +11,12 @@ exports.agregarConsumible = (req, res) => {
         return;
     }
     db.getInstance().collection("consumibles").insertOne(req.body.consumible)
-    .then(() => {
+    .then((response) => {
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "Consumible agregado exitosamente."
+            mensaje: "Consumible agregado exitosamente.",
+            consumible: response.ops[0]
         });
     })
     .catch(() => {
