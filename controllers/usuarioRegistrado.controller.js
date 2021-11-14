@@ -19,11 +19,11 @@ exports.agregarUsuarioRegistrado = (req, res) => {
             usuario: res.ops[0]
         });
     })
-    .catch(() => {
+    .catch((err) => {
         res.status(500).send({
             exito: false,
             status: 500,
-            mensaje: "Error interno en el servidor." 
+            mensaje: "Error interno en el servidor. " + err 
         });
     });
 };
