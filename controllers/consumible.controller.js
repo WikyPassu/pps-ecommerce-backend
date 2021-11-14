@@ -130,3 +130,47 @@ exports.traerConsumibles = (req, res) => {
         });
     });
 };
+
+exports.actualizarConsumible = (req, res) => {
+    if(!req.body._id || !req.body.cantidadUsada){
+        res.status(400).send({
+            exito: false,
+            status: 400,
+            mensaje: "Petición errónea. Falta parámetro '_id' o 'cantidadUsada'." 
+        });
+        return;
+    }
+    let ObjectID = require('mongodb').ObjectID;
+    db.getInstance().collection("consumibles").findOne({ _id: ObjectID(req.body._id) })
+    .then(data => {
+        if(!data){
+            res.status(404).send({
+                exito: false,
+                status: 404,
+                mensaje: "No se encontró el consumible." 
+            });
+            return;
+        }
+        let consumible = data;
+        let existenciaActualizada = consumible.existencia - req.body.cantidadUsada;
+        consumible.existencia = existenciaActualizada;
+        db.getInstance().collection("consumibles").updateOne(
+            { _id: ObjectID(req.body._id) }, { $set: consumible }
+        )
+        .then(() => {
+            res.status(200).send({
+                exito: true,
+                status: 200,
+                mensaje: "Cantidad usada del consumible actualizada exitosamente."
+            });
+            return;
+        });
+    })
+    .catch(() => {
+        res.status(500).send({
+            exito: false,
+            status: 500,
+            mensaje: "Error interno en el servidor." 
+        });
+    });
+};
