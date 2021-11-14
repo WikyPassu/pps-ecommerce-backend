@@ -16,7 +16,7 @@ exports.agregarUsuarioRegistrado = (req, res) => {
             exito: true,
             status: 200,
             mensaje: "Usuario agregado exitosamente.",
-            usuario: res
+            usuario: res.json()
         });
     })
     .catch(() => {
