@@ -11,11 +11,12 @@ exports.agregarEmpleado = (req, res) => {
         return;
     }
     db.getInstance().collection("empleados").insertOne(req.body.empleado)
-    .then(() => {
+    .then(response => {
         res.status(200).send({
             exito: true,
             status: 200,
-            mensaje: "Empleado agregado exitosamente."
+            mensaje: "Empleado agregado exitosamente.",
+            empleado: response.ops[0]
         });
     })
     .catch(() => {
