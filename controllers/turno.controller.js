@@ -132,15 +132,16 @@ exports.traerTurnos = (req, res) => {
 
 //BUSCAR TURNOS USUARIO
 exports.traerTurnosUsuario = (req, res) => {
-    if(!req.body.dniUsuario){
+    if(!req.body._id){
         res.status(400).send({
             exito: false,
             status: 400,
-            mensaje: "Petición errónea. Falta parámetro 'dniUsuario'." 
+            mensaje: "Petición errónea. Falta parámetro '_id'." 
         });
         return;
     }
-    db.getInstance().collection("turnos").find({ dniUsuario: req.body.dniUsuario })
+    let ObjectID = require('mongodb').ObjectID;
+    db.getInstance().collection("turnos").find({ _id: ObjectID(req.body._id) })
     .toArray()
     .then(data => {
         if(!data.length){
