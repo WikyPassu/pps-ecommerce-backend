@@ -34,6 +34,7 @@ app.use('/empleado', require('./routes/empleado'));
 app.use('/resenia', require('./routes/resenia'));
 app.use('/consumible', require('./routes/consumible'));
 app.use('/metodoPago', require('./routes/metodoPago'));
+app.use('/precioEnvios', require('./routes/precioEnvios'));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`App activa en el puerto ${port}`));

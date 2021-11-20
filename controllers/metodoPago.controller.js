@@ -6,18 +6,36 @@ mercadopago.configure({
 
 //REALIZAR PAGO
 exports.realizarPago = (req, res) => {
-    if(!req.body.productos){
+    if(!req.body.productos || !req.body.cliente){
         res.status(400).send({
             exito: false,
             status: 400,
-            mensaje: "Petición errónea. Falta parámetro 'productos'." 
+            mensaje: "Petición errónea. Falta parámetro 'productos' o 'cliente'." 
         });
         return;
     }
     let productos = req.body.productos;
+    let cliente = req.body.cliente;
     let preference = {
         auto_return: "approved",
         items: [],
+        payer: {
+            name: cliente.nombre,
+            surname: cliente.apellido,
+            email: cliente.correo,
+            phone: {
+                area_code: "+54",
+                number: cliente.telefono
+            },
+            identification: {
+                number: cliente.dni,
+                type: "DNI"
+            },
+            adress: {
+                zip_code: cliente.codigoPostal,
+                street_name: cliente.domicilio
+            }
+        },
         back_urls: {
             failure: "http://localhost:3000/caja/resultado/fallido",
             pending: "http://localhost:3000/caja/resultado/pendiente",
