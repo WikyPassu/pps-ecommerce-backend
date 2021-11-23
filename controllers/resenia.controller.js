@@ -111,7 +111,10 @@ exports.verificarCompraPrevia = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("turnos").find({ dniCliente: req.body.dniCliente })
+    db.getInstance().collection("turnos").find({
+        dniCliente: req.body.dniCliente,
+        "servicio._id": req.body.idServicio
+    })
     .toArray()
     .then(data => {
         if(!data.length){
