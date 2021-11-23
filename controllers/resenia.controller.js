@@ -103,7 +103,7 @@ exports.eliminarResenia = (req, res) => {
 
 //VERIFICAR COMPRA PREVIA
 exports.verificarCompraPrevia = (req, res) => {
-    if(!req.body.idServicio || !req.body.dniUsuario){
+    if(!req.body.idServicio || !req.body.dniCliente){
         res.status(400).send({
             exito: false,
             status: 400,
@@ -111,7 +111,7 @@ exports.verificarCompraPrevia = (req, res) => {
         });
         return;
     }
-    db.getInstance().collection("turnos").find({ dniUsuario: req.body.dniUsuario })
+    db.getInstance().collection("turnos").find({ dniCliente: req.body.dniCliente })
     .toArray()
     .then(data => {
         if(!data.length){
