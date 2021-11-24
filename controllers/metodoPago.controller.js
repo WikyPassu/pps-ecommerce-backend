@@ -66,3 +66,44 @@ exports.realizarPago = (req, res) => {
         });
     });
 };
+
+exports.getPayerByPaymentId = async (req, res) => {
+    try {
+        //CONSIGO PAYMENT
+        let resPayment = await axios({
+            method: 'get',
+            url: 'https://api.mercadopago.com/v1/payments/'+req.body.paymentId,
+            headers: {
+                Authorization: "Bearer TEST-8145171060277886-110105-845001e4473950c8bdb5f96ec41e17c5-256136854"
+            }
+        })
+        console.log("ORDER ID",resPayment.data.order.id);
+ 
+        //CONSIGO ORDER
+        let resOrder = await axios({
+            method: 'get',
+            url: 'https://api.mercadopago.com/merchant_orders/'+resPayment.data.order.id,
+            headers: {
+                Authorization: "Bearer TEST-8145171060277886-110105-845001e4473950c8bdb5f96ec41e17c5-256136854"
+            }
+        });
+        console.log("PREFERENCE ID",resOrder.data.preference_id);
+        
+        //CONSIGO PREFERENCE
+        let resPreference = await axios({
+            method: 'get',
+            url: 'https://api.mercadopago.com/checkout/preferences/'+resOrder.data.preference_id,
+            headers: {
+                Authorization: "Bearer TEST-8145171060277886-110105-845001e4473950c8bdb5f96ec41e17c5-256136854"
+            }
+        });
+        
+        //RETORNA QUIEN SOLICITO LA COMPRA
+        console.log("PAYAER",resPreference.data.payer);
+        res.json(resPreference.data.payer);
+    }
+    catch (err) {
+        console.log(err)
+        res.end();
+    }
+}
