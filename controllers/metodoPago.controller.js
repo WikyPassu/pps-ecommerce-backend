@@ -1,5 +1,5 @@
 const db = require("../models/db");
-const axios = require("axios").default;
+require("axios");
 const mercadopago = require ('mercadopago');
 mercadopago.configure({
   access_token: 'TEST-8145171060277886-110105-845001e4473950c8bdb5f96ec41e17c5-256136854'
