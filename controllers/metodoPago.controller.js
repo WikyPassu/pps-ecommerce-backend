@@ -37,7 +37,7 @@ exports.realizarPago = (req, res) => {
                 street_name: cliente.domicilio
             }
         },
-        back_urls: {
+        back_urls: req.body.back_urls || {
             failure: "http://localhost:3000/caja/resultado/fallido",
             pending: "http://localhost:3000/caja/resultado/pendiente",
             success: "http://localhost:3000/caja/resultado/exitoso"
