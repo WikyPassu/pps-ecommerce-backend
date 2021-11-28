@@ -7,11 +7,11 @@ mercadopago.configure({
 
 //REALIZAR PAGO
 exports.realizarPago = (req, res) => {
-    if(!req.body.productos || !req.body.cliente){
+    if(!req.body.productos || !req.body.cliente || !req.body.back_urls){
         res.status(400).send({
             exito: false,
             status: 400,
-            mensaje: "Petición errónea. Falta parámetro 'productos' o 'cliente'." 
+            mensaje: "Petición errónea. Falta parámetro 'productos', 'cliente' o 'back url'." 
         });
         return;
     }
@@ -29,7 +29,7 @@ exports.realizarPago = (req, res) => {
                 number: cliente.telefono
             },
             identification: {
-                number: cliente.dni,
+                number: cliente.dni+"",
                 type: "DNI"
             },
             adress: {
@@ -37,11 +37,7 @@ exports.realizarPago = (req, res) => {
                 street_name: cliente.domicilio
             }
         },
-        back_urls: req.body.back_urls || {
-            failure: "http://localhost:3000/caja/resultado/fallido",
-            pending: "http://localhost:3000/caja/resultado/pendiente",
-            success: "http://localhost:3000/caja/resultado/exitoso"
-        }
+        back_urls: req.body.back_urls
     };
     productos.forEach(item => {
         preference.items.push({
@@ -59,7 +55,8 @@ exports.realizarPago = (req, res) => {
             mercadoPago: response 
         });
     })
-    .catch(() => {
+    .catch((err) => {
+        console.log(err)
         res.status(500).send({
             exito: false,
             status: 500,
