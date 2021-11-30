@@ -37,11 +37,13 @@ exports.modificarProducto = (req, res) => {
         });
         return;
     }
+    console.log("BODY MODIFIED: ",req.body)
     let ObjectID = require('mongodb').ObjectID;
     db.getInstance().collection("productos").updateOne(
         { _id: ObjectID(req.body._id) }, { $set: req.body.producto }
     )
     .then(data => {
+        //console.log("resultado data: ",data);
         if(!data.modifiedCount){
             res.status(404).send({
                 exito: false,
