@@ -106,6 +106,10 @@ exports.getPayerByPaymentId = async (req, res) => {
     }
 }
 
+exports.getPayments = async (req, res) => {
+    
+}
+
 exports.getAllPaymentsByEmail = async (req, res) => {
     try {
         console.log("body", req.body);
