@@ -127,7 +127,7 @@ exports.verificarCompraPrevia = (req, res) => {
         }
         let cantidad = 0;
         data.forEach(turno => {
-            if(turno.servicio._id == req.body.idServicio){
+            if(turno.servicio._id == req.body.idServicio && turno.estado === "FINALIZADO"){
                 cantidad++;
             }
         });
